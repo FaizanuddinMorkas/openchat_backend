@@ -1,0 +1,19 @@
+plugins:
+  - serverless-dotenv-plugin
+service: openchat-backend-lambda
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: ap-south-1
+
+functions:
+  api:
+    handler: handler.handler
+    events:
+      - http:
+          path: /{proxy+}
+          method: any
+          cors: true
+    environment:
+      OPENROUTER_API_KEY: ${env:OPENROUTER_API_KEY}
